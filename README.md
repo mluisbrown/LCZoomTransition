@@ -16,38 +16,42 @@ The easiest way to install it is by copying the following to your project:
 
 * In your master view controller, initialize an instance of an LCZoomTransition, passing it your navigation controller:
 
-      self.zoomTransition = [[LCZoomTransition alloc] initWithNavigationController:self.navigationController];
+        self.zoomTransition = [[LCZoomTransition alloc] initWithNavigationController:self.navigationController];
 
 * Add a property to your detail view controller to be able to make the transition a gesture target:
 
-      @property (nonatomic, strong) id<LCZoomTransitionGestureTarget> gestureTarget;
+        @property (nonatomic, strong) id<LCZoomTransitionGestureTarget> gestureTarget;
 
 * In `prepareForSegue` in your master view controller tell the transition which cell (view) originated the transition and, optionally, set the gesture target on the detail view controller (if you want to uyse the interactive 'back' gestures):
 
-        // the transition controller needs to know the view (cell)
-        // that originated the segue in order to be able to "split"
-        // the table view correctly
-        self.zoomTransition.sourceView = [self.tableView cellForRowAtIndexPath:indexPath];
+````Objective-C
+    // the transition controller needs to know the view (cell)
+    // that originated the segue in order to be able to "split"
+    // the table view correctly
+    self.zoomTransition.sourceView = [self.tableView cellForRowAtIndexPath:indexPath];
 
-        // pass the custom transition to the destination controller
-        // so it can use it when setting up its gesture recognizers
-        [[segue destinationViewController] setGestureTarget:self.zoomTransition];
+    // pass the custom transition to the destination controller
+    // so it can use it when setting up its gesture recognizers
+    [[segue destinationViewController] setGestureTarget:self.zoomTransition];
+````
 
 * If you want the interactive 'back' gestures, in `viewDidLoad` in your detail view controller setup the gesture recognizers:
 
-        // setup a pinch gesture recognizer and make the target the custom transition handler
-        UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self.gestureTarget action:@selector(handlePinch:)];
-        [self.view addGestureRecognizer:pinchRecognizer];
+````Objective-C
+    // setup a pinch gesture recognizer and make the target the custom transition handler
+    UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self.gestureTarget action:@selector(handlePinch:)];
+    [self.view addGestureRecognizer:pinchRecognizer];
     
-        // setup an edge pan gesture recognizer and make the target the custom transition handler
-        UIScreenEdgePanGestureRecognizer *edgePanRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self.gestureTarget action:@selector(handleEdgePan:)];
-        edgePanRecognizer.edges = UIRectEdgeLeft;
-        [self.view addGestureRecognizer:edgePanRecognizer];
+    // setup an edge pan gesture recognizer and make the target the custom transition handler
+    UIScreenEdgePanGestureRecognizer *edgePanRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self.gestureTarget action:@selector(handleEdgePan:)];
+    edgePanRecognizer.edges = UIRectEdgeLeft;
+    [self.view addGestureRecognizer:edgePanRecognizer];
+````
 
 * That's it!
 
 ## License
-Copyright © 2013 Michael Brown (me@michael-brown.net)
+Copyright © 2013 Michael Brown
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
