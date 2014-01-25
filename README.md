@@ -2,6 +2,10 @@
 
 A custom UIViewController animated and interactive transition for use in master detail apps that uses a zoom in effect when going from master to detail and a zoom out effect when going back to the master view.
 
+When returning to the master view the 'back' transition can be interactively controlled by either a pinch gesture or the standard iOS 7 screen edge pan 'back' gesture.
+
+As used in my app [ThenDo](http://thendo.it)
+
 ## Requirements
 
 * iOS 7.0 or later.
@@ -48,7 +52,7 @@ The easiest way to install it is by copying the following to your project:
     [self.view addGestureRecognizer:edgePanRecognizer];
 ````
 
-* That's it!
+* That's it! See the included example project to see it in action.
 
 ## License
 Copyright © 2013 Michael Brown
