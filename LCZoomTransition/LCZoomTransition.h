@@ -42,5 +42,6 @@
 @property(nonatomic,assign) UINavigationController *parent;
 @property(nonatomic,assign,getter = isInteractive) BOOL interactive;
 
+@property (nonatomic, strong) UIColor *transitionBackgroundColor;
 
 @end

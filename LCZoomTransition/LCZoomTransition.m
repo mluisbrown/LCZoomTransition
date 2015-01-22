@@ -41,6 +41,7 @@
     if (self) {
         self.parent = nc;
         self.transitionDuration = .5;
+        self.transitionBackgroundColor = [UIColor whiteColor];
         
         nc.delegate = self;
     }
@@ -150,11 +151,11 @@
     // create views to cover the master top and bottom views so that
     // we can fade them in / out
     UIView *masterTopFadeView = [[UIView alloc] initWithFrame:masterTopView.frame];
-    masterTopFadeView.backgroundColor = [UIColor whiteColor];
+    masterTopFadeView.backgroundColor = masterView.backgroundColor;
     masterTopFadeView.alpha = initialAlpha;
 
     UIView *masterBottomFadeView = [[UIView alloc] initWithFrame:masterBottomView.frame];
-    masterBottomFadeView.backgroundColor = [UIColor whiteColor];
+    masterBottomFadeView.backgroundColor = masterView.backgroundColor;
     masterBottomFadeView.alpha = initialAlpha;
     
     // create snapshot view of the to view
@@ -169,7 +170,7 @@
     // create a background view so that we don't see the actual VC
     // views anywhere - start with a blank canvas.
     UIView *backgroundView = [[UIView alloc] initWithFrame:inView.frame];
-    backgroundView.backgroundColor = [UIColor whiteColor];
+    backgroundView.backgroundColor = self.transitionBackgroundColor;
     
     // add all the views to the transition view
     [inView addSubview:backgroundView];
